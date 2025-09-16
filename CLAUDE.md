@@ -1,6 +1,6 @@
 # Project Overview
 
-This is a native **iOS application** built with **Swift 6.1+** and **SwiftUI**. The codebase targets **iOS 18.0 and later**, allowing full use of modern Swift and iOS APIs. All concurrency is handled with **Swift Concurrency** (async/await, actors, @MainActor isolation) ensuring thread-safe code.
+This is a native **iOS application** built with **Swift 6.1+** and **SwiftUI** showcasing **Liquid Glass design from iOS 26**. The codebase targets **iOS 18.0 and later** with progressive enhancement for **iOS 26+ Liquid Glass features**. All concurrency is handled with **Swift Concurrency** (async/await, actors, @MainActor isolation) ensuring thread-safe code.
 
 - **Frameworks & Tech:** SwiftUI for UI, Swift Concurrency with strict mode, Swift Package Manager for modular architecture
 - **Architecture:** Model-View (MV) pattern using pure SwiftUI state management. We avoid MVVM and instead leverage SwiftUI's built-in state mechanisms (@State, @Observable, @Environment, @Binding)
@@ -100,88 +100,340 @@ YourApp/
    - Pass state via bindings between views
    - Never reach for a ViewModel as the solution
 
-# iOS 26 Features (Optional)
+# SwiftUI iOS 26 Comprehensive Documentation & Liquid Glass Design System
 
-**Note**: If your app targets iOS 26+, you can take advantage of these cutting-edge SwiftUI APIs introduced in June 2025. These features are optional and should only be used when your deployment target supports iOS 26.
+**Major Release**: SwiftUI iOS 26, released September 15, 2025, introduces the **Liquid Glass design revolution** - the biggest design overhaul since iOS 7. This represents a fundamental rethinking of interface design that automatically transforms apps when recompiled with Xcode 26.
 
-## Available iOS 26 SwiftUI APIs
+## 🌟 Liquid Glass Design Revolution
 
-When targeting iOS 26+, consider using these new APIs:
+Liquid Glass combines the optical properties of glass with fluid motion, creating interfaces that feel both transparent and alive:
 
-#### Liquid Glass Effects
-- `glassEffect(_:in:isEnabled:)` - Apply Liquid Glass effects to views
-- `buttonStyle(.glass)` - Apply Liquid Glass styling to buttons
-- `ToolbarSpacer` - Create visual breaks in toolbars with Liquid Glass
+### Core Liquid Glass Principles
+- **Clarity**: Understandable at a glance with perfect visual hierarchy
+- **Deference**: Content remains primary focus, UI enhances without distraction  
+- **Depth**: Multi-layered visual depth through sophisticated "Lensing" effects
+- **Translucency**: Glass-like materials with realistic light refraction
+- **Dynamic Transformation**: Materials adapt contextually to bring focus to content
 
-#### Enhanced Scrolling
-- `scrollEdgeEffectStyle(_:for:)` - Configure scroll edge effects
-- `backgroundExtensionEffect()` - Duplicate, mirror, and blur views around edges
+### Key Liquid Glass Features
+- **Dynamic adaptation** to content underneath with real-time refraction and reflection
+- **Morphing animations** during navigation transitions where toolbar items seamlessly transform
+- **Automatic tinting support** for enhanced visual hierarchy
+- **Contextual blur effects** that respond to scrolling behavior
+- **Environmental lighting** that mimics real glass interaction with surroundings
 
-#### Tab Bar Enhancements
-- `tabBarMinimizeBehavior(_:)` - Control tab bar minimization behavior
-- Search role for tabs with search field replacing tab bar
-- `TabViewBottomAccessoryPlacement` - Adjust accessory view content based on placement
+## 🆕 Revolutionary SwiftUI iOS 26 Components
 
-#### Web Integration
-- `WebView` and `WebPage` - Full control over browsing experience
-
-#### Drag and Drop
-- `draggable(_:_:)` - Drag multiple items
-- `dragContainer(for:id:in:selection:_:)` - Container for draggable views
-
-#### Animation
-- `@Animatable` macro - SwiftUI synthesizes custom animatable data properties
-
-#### UI Components
-- `Slider` with automatic tick marks when using step parameter
-- `windowResizeAnchor(_:)` - Set window anchor point for resizing
-
-#### Text Enhancements
-- `TextEditor` now supports `AttributedString`
-- `AttributedTextSelection` - Handle text selection with attributed text
-- `AttributedTextFormattingDefinition` - Define text styling in specific contexts
-- `FindContext` - Create find navigator in text editing views
-
-#### Accessibility
-- `AssistiveAccess` - Support Assistive Access in iOS scenes
-
-#### HDR Support
-- `Color.ResolvedHDR` - RGBA values with HDR headroom information
-
-#### UIKit Integration
-- `UIHostingSceneDelegate` - Host and present SwiftUI scenes in UIKit
-- `NSGestureRecognizerRepresentable` - Incorporate gesture recognizers from AppKit
-
-#### Immersive Spaces (if applicable)
-- `manipulable(coordinateSpace:operations:inertia:isEnabled:onChanged:)` - Hand gesture manipulation
-- `SurfaceSnappingInfo` - Snap volumes and windows to surfaces
-- `RemoteImmersiveSpace` - Render stereo content from Mac to Apple Vision Pro
-- `SpatialContainer` - 3D layout container
-- Depth-based modifiers: `aspectRatio3D(_:contentMode:)`, `rotation3DLayout(_:)`, `depthAlignment(_:)`
-
-## iOS 26 Usage Guidelines
-- **Only use when targeting iOS 26+**: Ensure your deployment target supports these APIs
-- **Progressive enhancement**: Use availability checks if supporting multiple iOS versions
-- **Feature detection**: Test on older simulators to ensure graceful fallbacks
-- **Modern aesthetics**: Leverage Liquid Glass effects for cutting-edge UI design
+### 1. Native WebView Integration
+Finally, SwiftUI gets native web capabilities without UIKit wrappers:
 
 ```swift
-// Example: Using iOS 26 features with availability checks
-struct ModernButton: View {
+import SwiftUI
+import WebKit
+
+struct ContentView: View {
     var body: some View {
-        Button("Tap me") {
-            // Action
+        WebView(url: URL(string: "https://example.com"))
+    }
+}
+
+// Advanced WebView with WebPage class
+struct WebBrowserView: View {
+    @State private var page = WebPage()
+    
+    var body: some View {
+        NavigationStack {
+            WebView(page)
+                .navigationTitle(page.title ?? "Loading...")
+        }
+    }
+}
+```
+
+### 2. Chart3D - Revolutionary Data Visualization
+Full 3D charting capabilities built into SwiftUI:
+
+```swift
+// 3D Point Charts
+Chart3D(data) { item in
+    PointMark(
+        x: .value("X Axis", item.xValue),
+        y: .value("Y Axis", item.yValue),
+        z: .value("Z Axis", item.zValue)
+    )
+    .foregroundStyle(by: .value("Category", item.category))
+}
+
+// Mathematical Surface Plots
+Chart3D {
+    SurfacePlot(x: "X", y: "Y", z: "Z") { x, z in
+        sin(hypot(x, z)) / hypot(x, z)  // Sinc function
+    }
+    .foregroundStyle(.normalBased)
+}
+```
+
+### 3. GlassEffectContainer - Cohesive Glass Grouping
+Groups multiple glass effects into unified visual systems:
+
+```swift
+GlassEffectContainer {
+    Button("Home") { /* action */ }
+        .glassEffect()
+        .glassEffectID("menu", in: namespace)
+    
+    Button("Settings") { /* action */ }
+        .glassEffect()
+        .glassEffectID("menu", in: namespace)
+}
+```
+
+### 4. Enhanced TextEditor with Rich Text
+Native rich text editing with AttributedString:
+
+```swift
+struct RichEditorView: View {
+    @State private var text = AttributedString()
+    
+    var body: some View {
+        TextEditor(text: $text)
+            .font(.body)
+    }
+}
+```
+
+## 🔮 Essential Liquid Glass Modifiers
+
+### Glass Effect System
+```swift
+// Basic glass effect - automatically adapts to content
+.glassEffect()
+
+// Advanced customizable glass effect
+.glassEffect(.regular.tint(.purple.opacity(0.8)).interactive())
+
+// Shared glass identity for coordinated effects
+.glassEffectID("navigation", in: namespace)
+```
+
+### Background Extension Effects
+Create immersive backgrounds extending beyond view bounds:
+
+```swift
+Image("heroImage")
+    .resizable()
+    .scaledToFill()
+    .backgroundExtensionEffect()
+```
+
+### Scroll Edge Effects
+Customize scroll view edge transitions with glass-like behavior:
+
+```swift
+ScrollView {
+    LazyVStack {
+        // Content with glass-aware scrolling
+    }
+}
+.scrollEdgeEffectStyle(.soft, for: .all)
+```
+
+**Available styles:**
+- `.automatic` - Platform-specific glass-aware default
+- `.hard` - Sharp cutoff with glass dividing line
+- `.soft` - Gradual glass-faded transition
+
+### ToolbarSpacer - Precise Glass Layout Control
+```swift
+.toolbar {
+    ToolbarItem(placement: .bottomBar) {
+        Button("Search") { /* action */ }
+    }
+    
+    ToolbarSpacer(.flexible, placement: .bottomBar)
+    
+    ToolbarItem(placement: .bottomBar) {
+        Button("New") { /* action */ }
+    }
+}
+```
+
+## 🎨 Animation Revolution: @Animatable Macro
+
+The `@Animatable` macro dramatically simplifies custom shape animations:
+
+```swift
+@Animatable
+struct LiquidArc: Shape {
+    var startAngle: Angle
+    var endAngle: Angle
+    @AnimatableIgnored var clockwise: Bool  // Won't animate
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.addArc(
+            center: CGPoint(x: rect.midX, y: rect.midY),
+            radius: rect.width / 2,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            clockwise: clockwise
+        )
+        return path
+    }
+}
+```
+
+## 📱 Enhanced Component Capabilities
+
+### Glass Button Styles
+```swift
+// Revolutionary glass button style
+Button("Liquid Action") { /* action */ }
+    .buttonStyle(.glass)
+
+// Enhanced bordered prominent with liquid tinting
+Button("Primary Action") { /* action */ }
+    .buttonStyle(.borderedProminent)
+    .tint(.purple)
+```
+
+### TabView with Liquid Glass Integration
+```swift
+TabView {
+    Tab("Home", systemImage: "house") {
+        HomeView()
+    }
+    Tab("Settings", systemImage: "gear") {
+        SettingsView()
+    }
+}
+.tabBarMinimizeBehavior(.onScrollDown)  // iPhone only
+.bottomAccessory {
+    // Custom glass accessory content
+}
+```
+
+### Section Index Navigation with Glass Effects
+```swift
+List {
+    Section {
+        ForEach(items) { item in
+            Text(item.name)
+        }
+    }
+    .sectionIndexLabel(Text("A"))
+    .listSectionMargins(.horizontal, 16)
+}
+.listSectionIndexVisibility(.visible)
+```
+
+### Navigation with Glass Subtitles
+```swift
+NavigationStack {
+    ContentView()
+        .navigationTitle("Mindful Therapy")
+        .navigationSubtitle("Liquid Glass Interface")
+}
+```
+
+## 🏗️ Platform-Specific Liquid Glass Features
+
+### iOS-Specific Glass Enhancements
+- **Search bars** moved to bottom for better ergonomics with glass effects
+- **Tab bars** with new compact glass appearance
+- **Toolbar morphing** animations that flow like liquid
+
+### visionOS Spatial Integration  
+- **Spatial SwiftUI** layouts with RealityKit glass integration
+- **Chart3D** optimized for natural 3D glass interactions
+- **Enhanced volumetric** APIs with glass depth effects
+
+## 🔄 Migration Strategy for Liquid Glass
+
+### Automatic Glass Transformations
+- **Instant visual transformation** when recompiling with Xcode 26
+- **Standard SwiftUI components** automatically adopt Liquid Glass
+- **Performance improvements** applied automatically
+
+### Manual Glass Integration Required
+- **Custom UI components** need glass effect integration
+- **Toolbar customizations** require new API updates  
+- **Color schemes** may need adjustment for glass compatibility
+
+### Backward Compatibility with Glass Effects
+```swift
+// Use availability checks for new glass features
+if #available(iOS 26, *) {
+    content
+        .glassEffect()
+        .backgroundExtensionEffect()
+        .sectionIndexLabel(Text("A"))
+} else {
+    content
+        .background(.regularMaterial)  // Fallback
+}
+```
+
+## 🎯 Liquid Glass Best Practices
+
+### Glass Design Guidelines
+- **Apply glass effects** to container views for cohesive liquid appearance
+- **Use GlassEffectContainer** for grouping related glass elements
+- **Consider background content** when applying glass effects for optimal legibility
+- **Test across different content types** to ensure glass readability
+
+### Performance with Glass Effects
+- **Leverage improved List performance** for large glass datasets
+- **Use LazyHStack** for horizontal glass scrolling performance
+- **Implement @Animatable macro** for smoother custom glass animations
+- **Utilize Chart3D** for immersive glass data visualization
+
+### Glass Accessibility Compliance
+- **Glass effects maintain** standard accessibility features automatically
+- **Section index labels** improve navigation for assistive technologies with glass
+- **Rich text editor** supports all text accessibility APIs through glass
+
+## 💡 iOS 26 Usage Guidelines
+- **Target iOS 26+ only** when deployment supports these revolutionary APIs
+- **Progressive enhancement** with availability checks for mixed iOS versions
+- **Feature detection** testing on older simulators for graceful glass fallbacks  
+- **Modern glass aesthetics** leverage Liquid Glass for cutting-edge UI design
+
+```swift
+// Example: Progressive Glass Enhancement
+struct ModernGlassButton: View {
+    var body: some View {
+        Button("Liquid Experience") {
+            // Enhanced action with glass feedback
         }
         .buttonStyle({
             if #available(iOS 26.0, *) {
-                .glass
+                .glass  // Revolutionary glass button
             } else {
-                .bordered
+                .borderedProminent  // Elegant fallback
+            }
+        }())
+        .modifier({
+            if #available(iOS 26.0, *) {
+                AnyViewModifier {
+                    $0.glassEffect(.interactive)
+                      .backgroundExtensionEffect()
+                }
+            } else {
+                AnyViewModifier { $0 }
             }
         }())
     }
 }
 ```
+
+## 🚀 Revolutionary Impact Summary
+
+SwiftUI iOS 26 with **Liquid Glass** represents a quantum leap in iOS interface design and development capabilities. The comprehensive glass design system, combined with powerful new components like native WebView, Chart3D, and enhanced animation tools, provides developers with unprecedented creative possibilities while maintaining SwiftUI's declarative simplicity.
+
+The **automatic glass transformations** upon recompilation, new **interaction paradigms**, and **platform-unified design language** position iOS 26 as the most significant SwiftUI update since the framework's introduction. 
+
+**Priority Implementation**: All new development should integrate Liquid Glass principles through `.glassEffect()`, `GlassEffectContainer`, and the comprehensive glass modifier system to create truly modern, immersive iOS applications that feel both transparent and alive.
 
 ## SwiftUI State Management (MV Pattern)
 
@@ -730,4 +982,49 @@ struct TaskListView: View {
 
 ---
 
-Remember: This project prioritizes clean, simple SwiftUI code using the platform's native state management. Keep the app shell minimal and implement all features in the Swift Package.
+# 🎯 S-Tier Design Principles Integration (PRIMARY)
+
+**CRITICAL**: All development MUST follow the **S-Tier SaaS Dashboard Design Principles** from `/design-review/design-principles-example.md`:
+
+## Core Philosophy (MANDATORY)
+- **Users First**: Prioritize user needs, workflows, and ease of use in every design decision
+- **Meticulous Craft**: Aim for precision, polish, and high quality in every UI element
+- **Speed & Performance**: Design for fast load times and snappy, responsive interactions  
+- **Simplicity & Clarity**: Clean, uncluttered interface with unambiguous information
+- **Focus & Efficiency**: Help users achieve goals quickly with minimal friction
+- **Consistency**: Uniform design language across entire application
+- **Accessibility (WCAG AA+)**: Inclusive design with proper contrast and navigation
+- **Opinionated Design**: Clear, efficient defaults reducing decision fatigue
+
+## Design System Foundation Requirements
+- **Color Palette**: Defined primary, neutrals (5-7 grays), semantic colors, dark mode
+- **Typography**: Clean sans-serif, modular scale, limited weights, generous line height
+- **Spacing**: 8px base unit with consistent multiples
+- **Border Radii**: Small set of consistent values (4-6px inputs, 8-12px cards)
+- **Components**: All with consistent states (default, hover, active, focus, disabled)
+
+## Layout & Hierarchy Requirements
+- **Responsive Grid**: 12-column system for consistent layout
+- **Strategic White Space**: Ample negative space for clarity
+- **Clear Visual Hierarchy**: Typography, spacing, positioning guide user's eye
+- **Consistent Alignment**: Maintain alignment across all elements
+
+# 🔮 Subtle Liquid Glass Integration (SECONDARY)
+
+Liquid Glass effects should **enhance** the S-Tier principles, never override them:
+
+## Minimalistic Glass Application
+- **Subtle depth only**: Light `.regularMaterial` backgrounds
+- **Strategic placement**: Only on container elements, not individual components
+- **Content first**: Glass effects must not interfere with readability
+- **Performance aware**: Minimal glass usage to maintain speed
+- **Accessibility preserved**: All WCAG AA+ requirements maintained through glass
+
+## Development Priorities
+1. **S-Tier Principles First** - Users First, Simplicity, Clarity, Performance
+2. **SwiftUI Best Practices** - Native state management, accessibility
+3. **Subtle Glass Enhancement** - Only when supporting core principles
+
+Remember: This project follows **S-Tier Design Principles FIRST** with subtle Liquid Glass enhancements that support (never override) the core design philosophy. Maintain clean, simple SwiftUI code using native state management. Keep the app shell minimal and implement all features in the Swift Package.
+
+**Always Reference**: `/design-review/design-principles-example.md` for S-Tier design decisions
