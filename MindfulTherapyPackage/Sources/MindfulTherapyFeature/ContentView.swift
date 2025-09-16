@@ -7,7 +7,8 @@ public struct ContentView: View {
         "Minimalist Zen",
         "Soft & Supportive", 
         "Clean & Focused",
-        "Perfect Blend"
+        "Perfect Blend",
+        "Onboarding Flow"
     ]
     
     public var body: some View {
@@ -79,6 +80,8 @@ public struct ContentView: View {
             HomeView_CleanFocused()
         case 3:
             HomeView_PerfectBlend()
+        case 4:
+            OnboardingCoordinator()
         default:
             HomeView_MinimalistZen()
         }
