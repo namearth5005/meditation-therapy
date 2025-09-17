@@ -10,7 +10,11 @@ public struct ContentView: View {
         "Perfect Blend",
         "Onboarding Flow",
         "Meditation Library",
-        "AI Chat"
+        "AI Chat",
+        "3D Analytics",
+        "Enhanced Session",
+        "Rich Journaling",
+        "Web Content"
     ]
     
     public var body: some View {
@@ -88,6 +92,14 @@ public struct ContentView: View {
             MeditationLibraryView()
         case 6:
             AIChatView()
+        case 7:
+            MeditationAnalytics3DView()
+        case 8:
+            EnhancedMeditationSessionView()
+        case 9:
+            EnhancedJournalingView()
+        case 10:
+            MeditationContentHubView()
         default:
             HomeView_MinimalistZen()
         }

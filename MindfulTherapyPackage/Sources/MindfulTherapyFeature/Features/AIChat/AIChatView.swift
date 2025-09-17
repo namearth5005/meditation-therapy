@@ -1254,8 +1254,8 @@ private struct MessageInput_MinimalGlass: View {
                             Circle()
                                 .fill(
                                     inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty 
-                                    ? Color(.systemGray4)
-                                    : Color(.systemBlue)
+                                    ? Color.gray.opacity(0.3)
+                                    : Color.blue
                                 )
                                 .overlay {
                                     Circle()
@@ -1268,7 +1268,7 @@ private struct MessageInput_MinimalGlass: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 16)
-            .background(Color(.systemBackground))
+            .background(Color.primary.opacity(0.05))
         }
     }
 }

@@ -277,6 +277,7 @@ private struct MeditationCard: View {
 
 // MARK: - Data Models
 public enum MeditationCategory: String, CaseIterable, Sendable {
+    case meditation = "meditation"
     case anxiety = "anxiety"
     case sleep = "sleep"
     case focus = "focus"
@@ -288,6 +289,7 @@ public enum MeditationCategory: String, CaseIterable, Sendable {
     
     var displayName: String {
         switch self {
+        case .meditation: return "Meditation"
         case .anxiety: return "Anxiety Relief"
         case .sleep: return "Better Sleep"
         case .focus: return "Focus Boost"
@@ -299,8 +301,13 @@ public enum MeditationCategory: String, CaseIterable, Sendable {
         }
     }
     
+    var title: String {
+        return displayName
+    }
+    
     var icon: String {
         switch self {
+        case .meditation: return "figure.seated.side"
         case .anxiety: return "leaf.fill"
         case .sleep: return "moon.stars.fill"
         case .focus: return "target"
@@ -314,6 +321,8 @@ public enum MeditationCategory: String, CaseIterable, Sendable {
     
     var gradientColors: [Color] {
         switch self {
+        case .meditation:
+            return [Color(hex: "667db6"), Color(hex: "0082c8")]
         case .anxiety:
             return [Color(hex: "84FAB0"), Color(hex: "8FD3F4")]
         case .sleep:
@@ -336,6 +345,12 @@ public enum MeditationCategory: String, CaseIterable, Sendable {
     // Artistic, minimalist backgrounds inspired by the reference image
     var artisticBackground: LinearGradient {
         switch self {
+        case .meditation:
+            return LinearGradient(
+                colors: [Color(hex: "A3BFFA"), Color(hex: "667EEA")],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
         case .anxiety:
             return LinearGradient(
                 colors: [Color(hex: "A7F3D0"), Color(hex: "6EE7B7")],
@@ -391,6 +406,20 @@ public enum MeditationCategory: String, CaseIterable, Sendable {
     @ViewBuilder
     var artisticElements: some View {
         switch self {
+        case .meditation:
+            // Peaceful meditation elements
+            ZStack {
+                Circle()
+                    .fill(.white.opacity(0.12))
+                    .frame(width: 50, height: 50)
+                    .offset(x: 20, y: -15)
+                
+                Ellipse()
+                    .fill(.white.opacity(0.08))
+                    .frame(width: 35, height: 35)
+                    .offset(x: -15, y: 25)
+            }
+            
         case .anxiety:
             // Gentle leaves and organic shapes
             ZStack {
